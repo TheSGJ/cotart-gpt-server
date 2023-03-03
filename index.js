@@ -24,13 +24,13 @@ const app = express()
 const port = 5000
 app.use(express.json())
 
-app.get('/', cors(corsOptions), async (req, res) => {
+app.get('/api', cors(corsOptions), async (req, res) => {
   res.status(200).send({
     message: 'Hello from Cotart API!'
   })
 })
 
-app.post('/', cors(corsOptions), async (req, res) => {
+app.post('/api', cors(corsOptions), async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
