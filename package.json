@@ -1,9 +1,22 @@
 {
   "name": "cotart-gpt-server",
   "private": true,
+  "description": "Cotart GPT Server uses OpenAI API and text-davinci-003 AI model to run backend server using express js",
+  "main": "index.js",
   "version": "1.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheSGJ/cotart-gpt-server.git"
+  },
+  "author": "TheSGJ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheSGJ/cotart-gpt-server/issues"
+  },
+  "homepage": "https://github.com/TheSGJ/cotart-gpt-server#readme",
+
   "scripts": {
-    "start": "node index.cjs",
+    "start": "node index.js",
     "dev": "nodemon index"
   },
   "dependencies": {
