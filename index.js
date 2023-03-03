@@ -1,13 +1,18 @@
 require('dotenv').config()
+
 const express = require('express');
-import { Configuration, OpenAIApi } from 'openai'
+const openaiPackage = require('openai')
+
+const { Configuration, OpenAIApi } = openaiPackage;
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
+
 var whitelist = [process.env.CORS_ALLOWED_HOST, process.env.CORS_ALLOWED_HOST_2]
+
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
