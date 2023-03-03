@@ -1,9 +1,15 @@
 require('dotenv').config()
+const port = 5000
+const openaiPackage = require('openai')
+const { Configuration, OpenAIApi } = openaiPackage;
 
 const express = require('express');
-const openaiPackage = require('openai')
+const app = express()
+var cors = require('cors')
 
-const { Configuration, OpenAIApi } = openaiPackage;
+app.use(express.json())
+app.use(cors())
+
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,11 +17,6 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-var cors = require('cors')
-app.use(cors())
-const app = express()
-const port = 5000
-app.use(express.json())
 
 app.get('/api/', async (req, res) => {
   res.status(200).send({
