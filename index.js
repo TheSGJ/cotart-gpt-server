@@ -1,27 +1,36 @@
-import express from 'express'
-import * as dotenv from 'dotenv'
-import cors from 'cors'
+require('dotenv').config()
+const express = require('express');
 import { Configuration, OpenAIApi } from 'openai'
-
-dotenv.config()
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
+var whitelist = [process.env.CORS_ALLOWED_HOST, process.env.CORS_ALLOWED_HOST_2]
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
+var cors = require('cors')
 const app = express()
-app.use(cors())
+
+const port = 5000
 app.use(express.json())
 
-app.get('/', async (req, res) => {
+app.get('/', cors(corsOptions), async (req, res) => {
   res.status(200).send({
     message: 'Hello from Cotart API!'
   })
 })
 
-app.post('/', async (req, res) => {
+app.post('/', cors(corsOptions), async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
@@ -45,4 +54,4 @@ app.post('/', async (req, res) => {
   }
 })
 
-app.listen(5000, () => console.log('AI server started on 5000'))
+app.listen(port, () => console.log(`AI server started on ${port}`))
