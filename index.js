@@ -11,31 +11,19 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-var whitelist = [process.env.CORS_ALLOWED_HOST, process.env.CORS_ALLOWED_HOST_2]
-
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-
 var cors = require('cors')
+app.use(cors())
 const app = express()
-
 const port = 5000
 app.use(express.json())
 
-app.get('/api', cors(corsOptions), async (req, res) => {
+app.get('/api/', async (req, res) => {
   res.status(200).send({
     message: 'Hello from Cotart API!'
   })
 })
 
-app.post('/api', cors(corsOptions), async (req, res) => {
+app.post('/api/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
